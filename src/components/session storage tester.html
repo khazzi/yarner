@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session storage input</title>
+</head>
+<body>
+    <h1>Session local storage tester</h1>
+    <input type="file" id="myFileInput" accept="image/*" onchange="viewImage(event)"/>
+    <button id="myButton" onclick="viewImage">View Image</button>
+    <img src="" alt="preview" id="myImagePreview" width="100px" height="100px"/>
+    <div>
+        <input type="text" name="" id="myText">
+        <button id="#butts">Submit</button>
+        <button id="preview">Preview</button>
+        <p class="myTextLocation"></p>
+
+    </div>
+    
+    <script>
+      
+       const myText = document.querySelector("#myText");
+       const myTextLocation = document.querySelector('.myTextLocation');
+       myText.addEventListener('input', letter => {
+        myTextLocation.textContent = letter.target.value
+       });
+       const butts = document.querySelector('#butts');
+       const saveToStorages = function () {
+        localStorage.setItem('text-input', myTextLocation.textContent)
+        };
+       butts.addEventListener('click', saveToStorages)
+       const savedText = localStorage.getItem('text-input');
+       const preview = document.querySelector('#preview');
+       preview.addEventListener('click', () => {
+        myTextLocation.textContent = savedText.value
+       });
+       
+       var viewImage = function (event) {
+        var checker = new FileReader();
+        checker.onload = function(){
+            var myImagePreview = document.getElementById('myImagePreview');
+        myImagePreview.src = checker.result; };
+    checker.readAsDataURL(event.target.files[0]);
+       };
+      
+
+
+
+           
+    </script>
+</body>
+</html>
